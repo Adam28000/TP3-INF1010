@@ -19,27 +19,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\Desktop\Fichiers\client.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\Desktop\Fichiers\clientPrestige.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\Desktop\Fichiers\clientRegulier.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\Desktop\Fichiers\main.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\Desktop\Fichiers\Menu.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\Desktop\Fichiers\Plat.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\Desktop\Fichiers\PlatBio.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\Desktop\Fichiers\PlatCustom.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\Desktop\Fichiers\Restaurant.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\Desktop\Fichiers\Table.cpp" />
+    <ClCompile Include="..\client.cpp" />
+    <ClCompile Include="..\clientPrestige.cpp" />
+    <ClCompile Include="..\clientRegulier.cpp" />
+    <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\Menu.cpp" />
+    <ClCompile Include="..\Plat.cpp" />
+    <ClCompile Include="..\PlatBio.cpp" />
+    <ClCompile Include="..\PlatCustom.cpp" />
+    <ClCompile Include="..\Restaurant.cpp" />
+    <ClCompile Include="..\Table.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\Desktop\Fichiers\Client.h" />
-    <ClInclude Include="..\..\..\..\..\..\Desktop\Fichiers\ClientPrestige.h" />
-    <ClInclude Include="..\..\..\..\..\..\Desktop\Fichiers\ClientRegulier.h" />
-    <ClInclude Include="..\..\..\..\..\..\Desktop\Fichiers\Menu.h" />
-    <ClInclude Include="..\..\..\..\..\..\Desktop\Fichiers\Plat.h" />
-    <ClInclude Include="..\..\..\..\..\..\Desktop\Fichiers\PlatBio.h" />
-    <ClInclude Include="..\..\..\..\..\..\Desktop\Fichiers\PlatCustom.h" />
-    <ClInclude Include="..\..\..\..\..\..\Desktop\Fichiers\Restaurant.h" />
-    <ClInclude Include="..\..\..\..\..\..\Desktop\Fichiers\Table.h" />
+    <ClInclude Include="..\Client.h" />
+    <ClInclude Include="..\ClientPrestige.h" />
+    <ClInclude Include="..\ClientRegulier.h" />
+    <ClInclude Include="..\Menu.h" />
+    <ClInclude Include="..\Plat.h" />
+    <ClInclude Include="..\PlatBio.h" />
+    <ClInclude Include="..\PlatCustom.h" />
+    <ClInclude Include="..\Restaurant.h" />
+    <ClInclude Include="..\Table.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
