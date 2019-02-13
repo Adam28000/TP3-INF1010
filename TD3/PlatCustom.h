@@ -15,7 +15,7 @@ using namespace std;
 
 const double FRAIS_CUSTOMISATION = 0.75;
 
-class PlatCustom  {
+class PlatCustom: public Plat  {
 public:
 	// constructeur
 	PlatCustom(string nom, double prix , double cout,int nbIngredients );
@@ -33,11 +33,12 @@ public:
 	//methodes en plus 
 
 	friend ostream& operator<<(ostream& os, const PlatCustom& plat); ///
+	double calculerSupplement() const;
 
 private:
 	double supplement_;
 	int nbIngredients_;
-	double calculerSupplement() const;
+	
 
 
 };
