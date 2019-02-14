@@ -75,7 +75,14 @@ double Table::getChiffreAffaire() const {
 	///voir Énoncé
 	double chiffre = 0;
 	for (unsigned i = 0; i < commande_.size(); ++i) 
+		switch (commande_[i]->getType())
+		{
+		case Regulier:
 			chiffre += commande_[i]->getPrix() - commande_[i]->getCout();
+		case Bio:
+			chiffre += commande_[i]->getPrix()+commande_[i]. - commande_[i]->getCout();
+		}
+			
 	return chiffre;
 }
 
