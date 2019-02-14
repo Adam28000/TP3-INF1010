@@ -8,7 +8,7 @@
 
 #include "ClientRegulier.h"
 enum AddressCode{Zone1,Zone2,Zone3};
-class ClientPrestige 
+class ClientPrestige :public ClientRegulier
 {
 public:
 	ClientPrestige();

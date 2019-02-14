@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\client.cpp" />
+    <ClCompile Include="..\Client.cpp" />
     <ClCompile Include="..\clientPrestige.cpp" />
     <ClCompile Include="..\clientRegulier.cpp" />
     <ClCompile Include="..\main.cpp" />

@@ -7,7 +7,7 @@ const double TAUX_REDUC_REGULIER = 0.1;
 const double TAUX_REDUC_PRESTIGE = 0.2;
 const double SEUIL_DEBUT_REDUCTION = 75;
 const double SEUIL_LIVRAISON_GRATUITE = 200;
-class ClientRegulier 
+class ClientRegulier: public Client 
 {
 public:
 	ClientRegulier();
