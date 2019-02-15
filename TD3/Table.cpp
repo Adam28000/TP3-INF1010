@@ -48,7 +48,7 @@ vector<Plat*> Table::getCommande() const
 
 Client * Table::getClientPrincipal() const
 {
-	return nullptr;
+	return clientPrincipal_;
 }
 
 
@@ -59,6 +59,7 @@ void Table::setId(int id) {
 
 void Table::setClientPrincipal(Client * clientPrincipal)
 {
+	clientPrincipal_ = clientPrincipal;
 }
 
 
@@ -89,7 +90,9 @@ double Table::getChiffreAffaire() const {
 		case Regulier:
 			chiffre += commande_[i]->getPrix() - commande_[i]->getCout();
 		case Bio:
-			chiffre += commande_[i]->getPrix()+commande_[i]. - commande_[i]->getCout();
+			chiffre += commande_[i]->getPrix() + static_cast<PlatBio*>(commande_[i])->getEcoTaxe()- commande_[i]->getCout();
+		case Custom:
+			chiffre += commande_[i]->getPrix() + static_cast<PlatCustom*>(commande_[i])->calculerSupplement() - commande_[i]->getCout();
 		}
 			
 	return chiffre;
