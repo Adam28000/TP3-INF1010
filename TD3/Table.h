@@ -27,7 +27,7 @@ public:
 	int getNbClientsATable() const; 
 	vector<Plat*> getCommande() const;
 	///TODO
-	Client* getCliengtPrincipal() const; 
+	Client* getClientPrincipal() const; 
 	///TODO
 	double getChiffreAffaire() const;/// A Modifier
 

@@ -46,10 +46,19 @@ vector<Plat*> Table::getCommande() const
 	return commande_;
 }
 
+Client * Table::getClientPrincipal() const
+{
+	return nullptr;
+}
+
 
 //setters
 void Table::setId(int id) {
 	id_ = id;
+}
+
+void Table::setClientPrincipal(Client * clientPrincipal)
+{
 }
 
 
