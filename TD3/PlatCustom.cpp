@@ -31,3 +31,4 @@ ostream & operator<<(ostream & os, const PlatCustom & plat)
 	os << "	contients " << plat.getNbIngredients() << " elements modifies pour un supplment total de : " << plat.getSupplement() << "$" << endl;
 	return os;
 }
+//test//
