@@ -23,6 +23,7 @@ Menu::Menu(const Menu & menu): type_(menu.type_)
 {
 	///TODO 
 	///Modifier
+
 	for (unsigned i = 0; i < menu.listePlats_.size(); ++i)
 	{			listePlats_.push_back(new Plat(*menu.listePlats_[i]));
 
@@ -56,6 +57,16 @@ ostream& operator<<(ostream& os, const Menu& menu)
 
 Menu& Menu::operator+=(const Plat& plat) {
 	listePlats_.push_back(new Plat(plat));
+
+	return *this;
+}
+
+Menu & Menu::operator+=(const PlatBio & plat)
+{
+	PlatBio* nouveauPlat = new PlatBio(plat);
+
+	listePlats_.push_back(nouveauPlat);
+	// TODO: insérer une instruction return ici
 	return *this;
 }
 
