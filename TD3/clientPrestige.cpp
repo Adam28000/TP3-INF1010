@@ -37,3 +37,4 @@ ostream & operator<<(ostream & os, ClientPrestige client)
 	os << "	Habite dans la " << client.getAddressCodeString() << endl;
 	return os;
 }
+
