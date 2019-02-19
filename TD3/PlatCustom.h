@@ -33,12 +33,12 @@ public:
 	//methodes en plus 
 
 	friend ostream& operator<<(ostream& os, const PlatCustom& plat); ///
-	double calculerSupplement() const;
+	
 
 private:
 	double supplement_;
 	int nbIngredients_;
-	
+	double calculerSupplement() const;
 
 
 };
