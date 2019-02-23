@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Client::Client():nom_("inconnu"),prenom_("inconnu"),statut_(Occasionnel)
+Client::Client():nom_("inconnu"),prenom_("inconnu"),statut_(Occasionnel),tailleGroupe_(1)
 {
 }
 
