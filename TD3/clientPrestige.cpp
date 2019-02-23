@@ -5,10 +5,12 @@ using namespace std;
 
 ClientPrestige::ClientPrestige():ClientRegulier(),addresse_(Zone3)
 {
+	statut_ = Prestige;
 }
 
 ClientPrestige::ClientPrestige(string nom, string prenom, int tailleGroupe, int nbPoints, AddressCode addresse):ClientRegulier (nom,prenom,tailleGroupe,nbPoints),addresse_(addresse)
 {
+	statut_ = Prestige;
 }
 
 AddressCode ClientPrestige::getAddresseCode()
