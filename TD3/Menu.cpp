@@ -45,8 +45,13 @@ ostream& operator<<(ostream& os, const Menu& menu)
 {
 	for (unsigned i = 0; i < menu.listePlats_.size(); ++i) {
 		
-		if(menu.listePlats_[i]->getType()==Regulier)
+		if (menu.listePlats_[i]->getType() == Regulier) {
 			os << "\t" << *menu.listePlats_[i];
+		}
+		else
+		{
+			os << "\t" << *menu.listePlats_[i] << endl << "                comprend une Taxe ecologique de  :" << static_cast<PlatBio*>(menu.listePlats_[i])->getEcoTaxe() << "$" << endl;
+		}
 
 	}
 
