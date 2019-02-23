@@ -9,6 +9,7 @@ ClientRegulier::ClientRegulier()
 
 ClientRegulier::ClientRegulier(string nom, string prenom, int tailleGroupe, int nbPoints):Client(nom,prenom,tailleGroupe),nbPoints_(nbPoints)
 {
+	statut_ = Fidele;
 }
 
 int ClientRegulier::getNbPoints()
