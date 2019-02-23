@@ -71,7 +71,7 @@ void Table::libererTable() {
 
 void Table::placerClients(int nbClient) {
 	nbPlaces_ -= nbClient;
-	nbClientsATable_ = nbClient;
+	nbClientsATable_ += nbClient; //Plus egale pour le cas ou on rajoute un client sur une table deja occupee par le groupe(personne du groupe en retard//
 }
 
 //autres methodes
@@ -105,7 +105,7 @@ ostream& operator<<(ostream& os, const Table& table)
 	os << "La table numero " << table.id_;
 	if (table.estOccupee())
 	{
-		os << " est occupee. ";
+		os << " est occupee. Le client principal est :" << endl << table.getClientPrincipal() << endl;
 		if (!table.commande_.empty())
 		{
 			os << "Voici la commande passee par les clients : " << endl;
