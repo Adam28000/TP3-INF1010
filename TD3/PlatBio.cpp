@@ -2,7 +2,7 @@
 
 PlatBio::PlatBio(string nom, double prix, double cout, double ecotaxe) :Plat(nom,prix,cout),ecoTaxe_(ecotaxe)
 {
-	
+	type_ = Bio;
 }
 
 double PlatBio::getEcoTaxe() const
