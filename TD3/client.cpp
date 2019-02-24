@@ -42,7 +42,7 @@ string Client::convertirStatutString() const
 		statutString = "Occasionnel";
 		break;
 	case Fidele:
-		statutString = "Fidele";
+		statutString = "Regulier";
 		break;
 	case Prestige:
 		statutString = "Prestige";

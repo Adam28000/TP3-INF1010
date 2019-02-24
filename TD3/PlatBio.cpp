@@ -18,6 +18,6 @@ void PlatBio::setEcoTaxe(double ecoTaxe)
 ostream & operator<<(ostream & os, const PlatBio & plat)
 {
 	os << Plat(plat);
-	os << "		comprend une Taxe ecologique de : " << plat.getEcoTaxe() << "$" << endl;
+	os << "	\t comprend une Taxe ecologique de : " << plat.getEcoTaxe() << "$" << endl;
 	return os;
 }

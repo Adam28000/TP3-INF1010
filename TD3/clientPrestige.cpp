@@ -25,18 +25,22 @@ string ClientPrestige::getAddressCodeString()
 	{
 	case Zone1:
 		adresseString = "Zone 1";
+		break;
 	case Zone2:
 		adresseString = "Zone 2";
+		break;
 	case Zone3:
 		adresseString = "Zone 3";
+		break;
 	}
 	return adresseString;
 }
 
 ostream & operator<<(ostream & os, ClientPrestige client)
 {
-	os << static_cast<ClientRegulier>(client) << endl;
-	os << "	Habite dans la " << client.getAddressCodeString() << endl;
+	string adresse = client.getAddressCodeString();
+	os << static_cast<ClientRegulier>(client) ;
+	os << "	Habite dans la " << adresse << endl;
 	return os;
 }
 

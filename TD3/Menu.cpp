@@ -30,9 +30,11 @@ Menu::Menu(const Menu & menu): type_(menu.type_)
 		{
 			case Regulier:
 				listePlats_.push_back(new Plat(*menu.listePlats_[i]));
+				break;
 
 			case Bio:
 				listePlats_.push_back(new PlatBio(*static_cast<PlatBio*>(menu.getListePlats()[i])));
+				break;
 
 			case Custom:
 				listePlats_.push_back(new PlatCustom(*static_cast<PlatCustom*>(menu.getListePlats()[i])));

@@ -59,9 +59,9 @@ void Table::setId(int id) {
 
 void Table::setClientPrincipal(Client * clientPrincipal)
 {
-	Client* nouveau = new Client(*clientPrincipal);
-	delete clientPrincipal_;
-	clientPrincipal_ = nouveau;
+	
+	
+	clientPrincipal_ = clientPrincipal;
 }
 
 
@@ -91,10 +91,13 @@ double Table::getChiffreAffaire() const {
 		{
 		case Regulier:
 			chiffre += commande_[i]->getPrix() - commande_[i]->getCout();
+			break;
 		case Bio:
 			chiffre += commande_[i]->getPrix() + static_cast<PlatBio*>(commande_[i])->getEcoTaxe()- commande_[i]->getCout();
+			break;
 		case Custom:
 			chiffre += commande_[i]->getPrix() + static_cast<PlatCustom*>(commande_[i])->getSupplement() - commande_[i]->getCout();
+			break;
 		}
 			
 	return chiffre;
@@ -107,13 +110,45 @@ ostream& operator<<(ostream& os, const Table& table)
 	os << "La table numero " << table.id_;
 	if (table.estOccupee())
 	{
-		os << " est occupee. Le client principal est :" << endl << *table.getClientPrincipal() << endl;
+		os << " est occupee. Le client principal est :" << endl;
+		switch (table.getClientPrincipal()->getStatut())
+		{
+			case Occasionnel:
+				os << "\t-" << (*table.getClientPrincipal()) << endl;
+				break;
+
+			case Fidele:
+
+				os <<"\t-"<< *static_cast<ClientRegulier*>(table.getClientPrincipal()) << endl;
+				break;
+			case Prestige:
+				os <<"\t-"<< *static_cast<ClientPrestige*>(table.getClientPrincipal()) << endl;
+				break;
+
+		}
+
+			
 		if (!table.commande_.empty())
 		{
 			os << "Voici la commande passee par les clients : " << endl;
 			for (unsigned i = 0; i < table.commande_.size(); ++i)
-			{
-				os << "\t" << *table.commande_[i];
+			{	
+				switch (table.commande_[i]->getType())
+				{
+					case Regulier:
+						os << "\t" << *table.commande_[i];
+						break;
+
+					case Bio:
+						os << "\t" << *static_cast<PlatBio*>(table.commande_[i])  ;
+						break;
+
+					case Custom:
+						os << "\t" << *table.commande_[i] << "  contients " << static_cast<PlatCustom*>(table.commande_[i])->getNbIngredients() << " elements modifies pour un supplement total de : " << static_cast<PlatCustom*>(table.commande_[i])->getSupplement() << "$";
+				}
+				os << endl;
+
+				
 			}
 		}
 		else

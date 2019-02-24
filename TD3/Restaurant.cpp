@@ -104,11 +104,13 @@ void Restaurant::libererTable(int id) {
 
 				case Occasionnel:
 					chiffreAffaire_ += tables_[i]->getChiffreAffaire();
-
+					break;
 				case Fidele:
 					chiffreAffaire_ += tables_[i]->getChiffreAffaire()-calculerReduction(tables_[i]->getClientPrincipal(), tables_[i]->getChiffreAffaire(),false);
+					break;
 				case Prestige:
 					chiffreAffaire_ += tables_[i]->getChiffreAffaire() - calculerReduction(tables_[i]->getClientPrincipal(), tables_[i]->getChiffreAffaire(), true);
+					break;
 			
 			}
 			
@@ -329,14 +331,17 @@ void Restaurant::livrerClient(Client * client, vector<string> commande)
 			case Matin:
 				 pointeurPlatRecherche = menuMatin_->trouverPlat(commande[i]);
 				tables_[INDEX_TABLE_LIVRAISON]->commander(pointeurPlatRecherche);
+				break;
 
 			case Midi:
 				 pointeurPlatRecherche = menuMidi_->trouverPlat(commande[i]);
 				tables_[INDEX_TABLE_LIVRAISON]->commander(pointeurPlatRecherche);
+				break;
 
 			case Soir:
 				 pointeurPlatRecherche = menuSoir_->trouverPlat(commande[i]);
 				tables_[INDEX_TABLE_LIVRAISON]->commander(pointeurPlatRecherche);
+				break;
 			}
 
 		}
@@ -360,6 +365,7 @@ double Restaurant::calculerReduction(Client * client, double montant, bool livra
 		{
 			reductionCalculee = montant * TAUX_REDUC_REGULIER;
 		}
+		break;
 
 	case Prestige:
 		reductionCalculee = montant * TAUX_REDUC_PRESTIGE;
@@ -369,6 +375,7 @@ double Restaurant::calculerReduction(Client * client, double montant, bool livra
 
 			reductionCalculee += fraisTransport_[1-1];
 		}
+		break;
 
 
 	}

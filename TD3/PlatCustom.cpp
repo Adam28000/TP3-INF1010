@@ -29,7 +29,7 @@ double PlatCustom::calculerSupplement() const
 ostream & operator<<(ostream & os, const PlatCustom & plat)
 {
 	os<< Plat(plat);
-	os << "	contients " << plat.getNbIngredients() << " elements modifies pour un supplment total de : " << plat.getSupplement() << "$" << endl;
+	os << "contients " << plat.getNbIngredients() << " elements modifies pour un supplment total de : " << plat.getSupplement() << "$" << endl<<endl;
 	return os;
 }
 //test//
