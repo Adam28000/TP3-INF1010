@@ -325,6 +325,10 @@ void Restaurant::livrerClient(Client * client, vector<string> commande)
 		}
 		libererTable(tables_[INDEX_TABLE_LIVRAISON]->getId());
 	}
+	else
+	{
+		cout << client->getPrenom() << "." << client->getNom() << " n'est pas prestige" << endl;
+	}
 
 
 }

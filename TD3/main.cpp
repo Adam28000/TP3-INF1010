@@ -30,6 +30,9 @@ int main() {
 	Client * cl4 = new ClientRegulier("Moussa", "T", 3,45);
 	Client * cl5 = new ClientPrestige("Andree", "F", 2,150, Zone2);
 	Client * cl6 = new ClientPrestige("Marie", "C", 1,125, Zone1);
+	vector<string> commandeMarie;
+	commandeMarie.push_back("Pizza");
+
 
 
 
@@ -37,6 +40,8 @@ int main() {
 	cout << "--------------------------------------------------------------------------------------------------" << endl;
 
 	//Livrer les clients Marie et Martins
+	poly.livrerClient(cl1, commandeMartin);
+	poly.livrerClient(cl6, commandeMarie);
 
 	cout << "\t\t\t\t\tPLACEMENT DES CLIENT" << endl;
 	cout << "--------------------------------------------------------------------------------------------------" << endl;
