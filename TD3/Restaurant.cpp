@@ -118,6 +118,7 @@ ostream& operator<<(ostream& os, const Restaurant& restau)
 	os << "-Voici les tables : " << endl;
 
 	for (unsigned i = 0; i < restau.tables_.size(); i++) {
+		
 		os  << *restau.tables_[i] << endl;
 	}
 	os << endl;
@@ -169,7 +170,16 @@ void Restaurant::commanderPlat(const string& nom, int idTable,TypePlat type, int
 	}
 	else
 	{
-		tables_[index]->commander(plat);
+		if (type == Custom)
+		{
+			PlatCustom* nouveauPlatCustom= new PlatCustom(nom, plat->getPrix(), plat->getCout(), nbIngredients);
+			tables_[index]->commander(nouveauPlatCustom);
+		}
+		else
+		{
+			tables_[index]->commander(plat);
+		}
+		
 
 	}
 
@@ -259,7 +269,7 @@ Restaurant& Restaurant::operator+=(Table* table) {
 	return *this;
 }
 
-void Restaurant::placerClients(int nbClients) {
+void Restaurant::placerClients(Client* client) {
 
 	/// TODO 
 	///Modifier Afin qu'elle utilise un objet de la classe clients 
@@ -270,7 +280,7 @@ void Restaurant::placerClients(int nbClients) {
 
 
 	for (unsigned i = 0; i < tables_.size(); i++) {
-		if (tables_[i]->getNbPlaces() >= nbClients && !tables_[i]->estOccupee() && tables_[i]->getNbPlaces() < minimum) {
+		if (tables_[i]->getNbPlaces() >= client->getTailleGroupe() && !tables_[i]->estOccupee() && tables_[i]->getNbPlaces() < minimum) {
 			indexTable = i;
 			minimum = tables_[i]->getNbPlaces();
 		}
@@ -279,7 +289,8 @@ void Restaurant::placerClients(int nbClients) {
 		cout << "Erreur : il n'y a plus/pas de table disponible pour les clients. " << endl;
 	}
 	else
-		tables_[indexTable]->placerClients(nbClients);
+		tables_[indexTable]->placerClients(client->getTailleGroupe());
+		tables_[indexTable]->setClientPrincipal(client);
 }
 
 void Restaurant::livrerClient(Client * client, vector<string> commande)
@@ -289,8 +300,58 @@ void Restaurant::livrerClient(Client * client, vector<string> commande)
 	///vérifier que le client a droit aux livraisons
 	///Si oui lui assigner la table des livraisons 
 	///Effectuer la commande
+	if (client->getStatut() == Prestige)
+	{
+		tables_[INDEX_TABLE_LIVRAISON]->setClientPrincipal(client);
+		tables_[INDEX_TABLE_LIVRAISON]->placerClients(1);
+		
+		for (int i = 0; i < commande.size(); i++)
+		{
+			switch (momentJournee_)
+			{
+			case Matin:
+				Plat * pointeurPlatRecherche = menuMatin_->trouverPlat(commande[i]);
+				tables_[INDEX_TABLE_LIVRAISON]->commander(pointeurPlatRecherche);
+
+			case Midi:
+				Plat * pointeurPlatRecherche = menuMidi_->trouverPlat(commande[i]);
+				tables_[INDEX_TABLE_LIVRAISON]->commander(pointeurPlatRecherche);
+
+			case Soir:
+				Plat * pointeurPlatRecherche = menuSoir_->trouverPlat(commande[i]);
+				tables_[INDEX_TABLE_LIVRAISON]->commander(pointeurPlatRecherche);
+			}
+			
+		}
+		libererTable(tables_[INDEX_TABLE_LIVRAISON]->getId());
+	}
 
 
+}
+
+double Restaurant::calculerReduction(Client * client, double montant, bool livraison)
+{
+	double reductionCalculee(montant);
+	switch (client->getStatut())
+	{
+		case Fidele:
+			if (static_cast<ClientRegulier*>(client)->getNbPoints() > SEUIL_DEBUT_REDUCTION)
+			{
+				reductionCalculee = montant * TAUX_REDUC_REGULIER;
+			}
+
+		case Prestige:
+				reductionCalculee = montant * TAUX_REDUC_PRESTIGE;
+				int zone(0);
+				if (static_cast<ClientPrestige*>(client)->getNbPoints() < SEUIL_LIVRAISON_GRATUITE)
+				{	
+					
+					reductionCalculee += fraisTransport_[static_cast<ClientPrestige*>(client)->getAddresseCode()];
+				}
+		
+
+	}
+	return reductionCalculee;
 }
 
 
