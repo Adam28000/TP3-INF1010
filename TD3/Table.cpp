@@ -105,7 +105,7 @@ ostream& operator<<(ostream& os, const Table& table)
 	os << "La table numero " << table.id_;
 	if (table.estOccupee())
 	{
-		os << " est occupee. Le client principal est :" << endl << table.getClientPrincipal() << endl;
+		os << " est occupee. Le client principal est :" << endl << *table.getClientPrincipal() << endl;
 		if (!table.commande_.empty())
 		{
 			os << "Voici la commande passee par les clients : " << endl;

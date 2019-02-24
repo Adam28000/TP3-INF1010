@@ -25,7 +25,21 @@ Menu::Menu(const Menu & menu): type_(menu.type_)
 	///Modifier
 
 	for (unsigned i = 0; i < menu.listePlats_.size(); ++i)
-	{			listePlats_.push_back(new Plat(*menu.listePlats_[i]));
+	{
+		switch (menu.listePlats_[i]->getType())
+		{
+			case Regulier:
+				listePlats_.push_back(new Plat(*menu.listePlats_[i]));
+
+			case Bio:
+				listePlats_.push_back(new PlatBio(*static_cast<PlatBio*>(menu.getListePlats()[i])));
+
+			case Custom:
+				listePlats_.push_back(new PlatCustom(*static_cast<PlatCustom*>(menu.getListePlats()[i])));
+
+		
+		}
+		
 
 	}
 }

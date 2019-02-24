@@ -97,7 +97,21 @@ void Restaurant::libererTable(int id) {
 
 	for (unsigned i = 0; i < tables_.size(); ++i) {
 		if (id == tables_[i]->getId()) {
-			chiffreAffaire_ += tables_[i]->getChiffreAffaire();
+
+			switch (tables_[i]->getClientPrincipal()->getStatut())
+			{
+				
+
+				case Occasionnel:
+					chiffreAffaire_ += tables_[i]->getChiffreAffaire();
+
+				case Fidele:
+					chiffreAffaire_ += tables_[i]->getChiffreAffaire()-calculerReduction(tables_[i]->getClientPrincipal(), tables_[i]->getChiffreAffaire(),false);
+				case Prestige:
+					chiffreAffaire_ += tables_[i]->getChiffreAffaire() - calculerReduction(tables_[i]->getClientPrincipal(), tables_[i]->getChiffreAffaire(), true);
+			
+			}
+			
 			tables_[i]->libererTable();
 			break;
 		}
@@ -287,8 +301,10 @@ void Restaurant::placerClients(Client* client) {
 		cout << "Erreur : il n'y a plus/pas de table disponible pour les clients. " << endl;
 	}
 	else
+	{
 		tables_[indexTable]->placerClients(client->getTailleGroupe());
-	tables_[indexTable]->setClientPrincipal(client);
+		tables_[indexTable]->setClientPrincipal(client);
+	}
 }
 
 void Restaurant::livrerClient(Client * client, vector<string> commande)
@@ -349,7 +365,7 @@ double Restaurant::calculerReduction(Client * client, double montant, bool livra
 		if (static_cast<ClientPrestige*>(client)->getNbPoints() < SEUIL_LIVRAISON_GRATUITE)
 		{
 
-			reductionCalculee += fraisTransport_[static_cast<ClientPrestige*>(client)->getAddresseCode()];
+			reductionCalculee += fraisTransport_[static_cast<ClientPrestige*>(client)->getAddresseCode()-1];
 		}
 
 
