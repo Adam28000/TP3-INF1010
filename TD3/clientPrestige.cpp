@@ -35,7 +35,7 @@ string ClientPrestige::getAddressCodeString()
 
 ostream & operator<<(ostream & os, ClientPrestige client)
 {
-	os << ClientRegulier(client) << endl;
+	os << static_cast<ClientRegulier>(client) << endl;
 	os << "	Habite dans la " << client.getAddressCodeString() << endl;
 	return os;
 }
