@@ -76,7 +76,7 @@ int main() {
 	//liberer les tables et calcule du chiffre d'affaire
 	poly.libererTable(1);
 	poly.libererTable(2);
-	poly.libererTable(3);
+	
 	poly.libererTable(4);
 
 	cout << poly;

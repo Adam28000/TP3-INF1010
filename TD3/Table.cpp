@@ -59,7 +59,8 @@ void Table::setId(int id) {
 
 void Table::setClientPrincipal(Client * clientPrincipal)
 {
-	clientPrincipal_ = clientPrincipal;
+	Client* nouveau = new Client(*clientPrincipal);
+	clientPrincipal_ = nouveau;
 }
 
 

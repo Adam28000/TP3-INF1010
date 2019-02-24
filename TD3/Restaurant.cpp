@@ -303,8 +303,10 @@ void Restaurant::placerClients(Client* client) {
 	else
 	{
 		tables_[indexTable]->placerClients(client->getTailleGroupe());
+		
 		tables_[indexTable]->setClientPrincipal(client);
 	}
+	
 }
 
 void Restaurant::livrerClient(Client * client, vector<string> commande)
@@ -365,7 +367,7 @@ double Restaurant::calculerReduction(Client * client, double montant, bool livra
 		if (static_cast<ClientPrestige*>(client)->getNbPoints() < SEUIL_LIVRAISON_GRATUITE)
 		{
 
-			reductionCalculee += fraisTransport_[static_cast<ClientPrestige*>(client)->getAddresseCode()-1];
+			reductionCalculee += fraisTransport_[1-1];
 		}
 
 
