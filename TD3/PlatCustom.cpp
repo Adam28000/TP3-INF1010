@@ -4,6 +4,7 @@ PlatCustom::PlatCustom(string nom, double prix, double cout, int nbIngredients):
 {
 	supplement_ = calculerSupplement();
 	type_ = Custom;
+	
 }
 
 int PlatCustom::getNbIngredients() const

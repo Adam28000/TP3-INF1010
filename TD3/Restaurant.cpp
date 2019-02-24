@@ -188,9 +188,12 @@ void Restaurant::commanderPlat(const string& nom, int idTable, TypePlat type, in
 	{
 		if (type == Custom)
 		{
+
 			PlatCustom* nouveauPlatCustom = new PlatCustom(nom, plat->getPrix(), plat->getCout(), nbIngredients);
 			tables_[index]->commander(nouveauPlatCustom);
+		
 		}
+		
 		else
 		{
 			tables_[index]->commander(plat);
@@ -318,8 +321,9 @@ void Restaurant::livrerClient(Client * client, vector<string> commande)
 	///v�rifier que le client a droit aux livraisons
 	///Si oui lui assigner la table des livraisons 
 	///Effectuer la commande
-	if (client->getStatut() == Prestige)
+	/*if (client->getStatut() == Prestige)
 	{
+		cout << "Livraison en cours .." << endl;
 		tables_[INDEX_TABLE_LIVRAISON]->setClientPrincipal(client);
 		tables_[INDEX_TABLE_LIVRAISON]->placerClients(1);
 
@@ -349,37 +353,48 @@ void Restaurant::livrerClient(Client * client, vector<string> commande)
 	}
 	else
 	{
-		cout << client->getPrenom() << "." << client->getNom() << " n'est pas prestige" << endl;
+		cout << client->getPrenom() << "." << client->getNom() << " n'est pas admissible a la livraison" << endl;
+	}*/
+	if (client->getStatut() == Prestige)
+	{
+		tables_[INDEX_TABLE_LIVRAISON]->setClientPrincipal(client);
+		tables_[INDEX_TABLE_LIVRAISON]->placerClients(1);
+		cout << "livraison en cours ..." << endl;
+		for (int i = 0; i < commande.size(); i++)
+		{
+
+			switch (momentJournee_)
+			{
+			case Matin:commanderPlat(menuMatin_->trouverPlat(commande[i])->getNom(), INDEX_TABLE_LIVRAISON, menuMatin_->trouverPlat(commande[i])->getType(), 0);
+				break;
+			case Midi:commanderPlat(menuMidi_->trouverPlat(commande[i])->getNom(), INDEX_TABLE_LIVRAISON, menuMidi_->trouverPlat(commande[i])->getType(), 0);
+				break;
+			case Soir:commanderPlat(menuSoir_->trouverPlat(commande[i])->getNom(), INDEX_TABLE_LIVRAISON, menuSoir_->trouverPlat(commande[i])->getType(), 0);
+				break;
+			}
+
+			cout << *tables_[INDEX_TABLE_LIVRAISON];
+		}
+		cout << "livraison terminer" << endl;
+		libererTable(tables_[INDEX_TABLE_LIVRAISON]->getId());
 	}
+	else cout << "Le client " << client->getPrenom() << " " << client->getNom() << " n est pas admissible a la livraison:" << endl;
 
 
 }
 
 double Restaurant::calculerReduction(Client * client, double montant, bool livraison)
 {
-	double reductionCalculee(montant);
-	switch (client->getStatut())
-	{
-	case Fidele:
-		if (static_cast<ClientRegulier*>(client)->getNbPoints() > SEUIL_DEBUT_REDUCTION)
-		{
-			reductionCalculee = montant * TAUX_REDUC_REGULIER;
-		}
-		break;
-
-	case Prestige:
-		reductionCalculee = montant * TAUX_REDUC_PRESTIGE;
-		int zone(0);
-		if (static_cast<ClientPrestige*>(client)->getNbPoints() < SEUIL_LIVRAISON_GRATUITE)
-		{
-
-			reductionCalculee += fraisTransport_[1-1];
-		}
-		break;
-
-
+	if (client->getStatut() == Regulier && static_cast<ClientRegulier*>(client)->getNbPoints() > SEUIL_DEBUT_REDUCTION) {
+		return montant * TAUX_REDUC_REGULIER;
 	}
-	return reductionCalculee;
+	if (client->getStatut() == Prestige) {
+		if (static_cast<ClientPrestige*>(client)->getNbPoints() < SEUIL_LIVRAISON_GRATUITE && livraison == true) {
+			return  montant * TAUX_REDUC_PRESTIGE - fraisTransport_[static_cast<ClientPrestige*>(client)->getAddresseCode()];
+		}
+		else return  montant * TAUX_REDUC_PRESTIGE;
+	}
+	return 0.0;
 }
 
 

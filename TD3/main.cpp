@@ -25,6 +25,8 @@ int main() {
 	vector<string> commandeMartin;
 	commandeMartin.push_back("Muffin");
 	commandeMartin.push_back("Poisson");
+
+	
 	Client * cl2 = new Client("Amy", "wh", 15);
 	Client * cl3 = new ClientRegulier("Jonh", "sm", 5,25);
 	Client * cl4 = new ClientRegulier("Moussa", "T", 3,45);
