@@ -42,8 +42,9 @@ int main() {
 	cout << "--------------------------------------------------------------------------------------------------" << endl;
 
 	//Livrer les clients Marie et Martins
-	poly.livrerClient(cl1, commandeMartin);
+	
 	poly.livrerClient(cl6, commandeMarie);
+	poly.livrerClient(cl1, commandeMartin);
 
 	cout << "\t\t\t\t\tPLACEMENT DES CLIENT" << endl;
 	cout << "--------------------------------------------------------------------------------------------------" << endl;

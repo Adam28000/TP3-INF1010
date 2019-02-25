@@ -106,7 +106,7 @@ double Table::getChiffreAffaire() const {
 //affichage
 
 ostream& operator<<(ostream& os, const Table& table)
-{
+{	
 	os << "La table numero " << table.id_;
 	if (table.estOccupee())
 	{
