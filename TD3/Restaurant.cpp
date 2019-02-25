@@ -95,35 +95,39 @@ void Restaurant::libererTable(int id) {
 	///Modifier pour prendre en compte les diff�rents types de clients et leurs privil�ges
 	///Voir �nonc�
 
+	bool livraison = false;
 	for (unsigned i = 0; i < tables_.size(); ++i) {
-		if (id == tables_[i]->getId()) {
-			
-			bool livraison(false);
-			if (i = INDEX_TABLE_LIVRAISON)
-			{
-				livraison = true;
-			}
+
+		if (id == tables_[i]->getId() && tables_[i]->estOccupee())
+		{
 			switch (tables_[i]->getClientPrincipal()->getStatut())
 			{
-				
-
 				case Occasionnel:
-
 					chiffreAffaire_ += tables_[i]->getChiffreAffaire();
 					break;
+
 				case Fidele:
-					chiffreAffaire_ += tables_[i]->getChiffreAffaire()+calculerReduction(tables_[i]->getClientPrincipal(), tables_[i]->getChiffreAffaire(),livraison);
-					break;
+				{double reduction = calculerReduction(tables_[i]->getClientPrincipal(), tables_[i]->getChiffreAffaire(), false);
+				
+
+				chiffreAffaire_ += reduction;
+				break; }
+
 				case Prestige:
-					
-					chiffreAffaire_ += tables_[i]->getChiffreAffaire() + calculerReduction(tables_[i]->getClientPrincipal(), tables_[i]->getChiffreAffaire(), livraison);
+					if (i == INDEX_TABLE_LIVRAISON)
+					{
+						livraison = true;
+					}
+					double reductionB=calculerReduction(tables_[i]->getClientPrincipal(), tables_[i]->getChiffreAffaire(), livraison);
+					chiffreAffaire_ += reductionB;
 					break;
-			
+
+
 			}
-			
+		
 			tables_[i]->libererTable();
-			break;
 		}
+
 	}
 }
 
@@ -195,7 +199,7 @@ void Restaurant::commanderPlat(const string& nom, int idTable, TypePlat type, in
 	{
 		if (type == Custom)
 		{
-
+			
 			PlatCustom* nouveauPlatCustom = new PlatCustom(nom, platRecherche->getPrix(), platRecherche->getCout(), nbIngredients);
 			tables_[index]->commander(nouveauPlatCustom);
 		
@@ -304,7 +308,7 @@ void Restaurant::placerClients(Client* client) {
 
 
 	for (unsigned i = 0; i < tables_.size(); i++) {
-		if (tables_[i]->getNbPlaces() >= client->getTailleGroupe() && !tables_[i]->estOccupee() && tables_[i]->getNbPlaces() < minimum) {
+		if (tables_[i]->getNbPlaces() >= client->getTailleGroupe() && !tables_[i]->estOccupee() && tables_[i]->getNbPlaces() < minimum && i!=INDEX_TABLE_LIVRAISON) {
 			indexTable = i;
 			minimum = tables_[i]->getNbPlaces();
 		}
@@ -353,45 +357,26 @@ void Restaurant::livrerClient(Client * client, vector<string> commande)
 	{
 		cout << "Le client "<<client->getPrenom() << "." << client->getNom() << " n'est pas admissible a la livraison" << endl<<endl<<endl;
 	}
-	/*if (client->getStatut() == Prestige)
-	{
-		tables_[INDEX_TABLE_LIVRAISON]->setClientPrincipal(client);
-		tables_[INDEX_TABLE_LIVRAISON]->placerClients(1);
-		cout << "livraison en cours ..." << endl;
-		for (int i = 0; i < commande.size(); i++)
-		{
 
-			switch (momentJournee_)
-			{
-			case Matin:commanderPlat(menuMatin_->trouverPlat(commande[i])->getNom(), INDEX_TABLE_LIVRAISON, menuMatin_->trouverPlat(commande[i])->getType(), 0);
-				break;
-			case Midi:commanderPlat(menuMidi_->trouverPlat(commande[i])->getNom(), INDEX_TABLE_LIVRAISON, menuMidi_->trouverPlat(commande[i])->getType(), 0);
-				break;
-			case Soir:commanderPlat(menuSoir_->trouverPlat(commande[i])->getNom(), INDEX_TABLE_LIVRAISON, menuSoir_->trouverPlat(commande[i])->getType(), 0);
-				break;
-			}
-
-			cout << *tables_[INDEX_TABLE_LIVRAISON];
-		}
-		cout << "livraison terminer" << endl;
-		libererTable(tables_[INDEX_TABLE_LIVRAISON]->getId());
-	}
-	else cout << "Le client " << client->getPrenom() << " " << client->getNom() << " n est pas admissible a la livraison:" << endl;
-	*/
 
 }
 
 double Restaurant::calculerReduction(Client * client, double montant, bool livraison)
 {
-	if (client->getStatut() == Regulier && static_cast<ClientRegulier*>(client)->getNbPoints() > SEUIL_DEBUT_REDUCTION) {
-		return -montant * TAUX_REDUC_REGULIER;
+	if(client->getStatut() == Regulier && static_cast<ClientRegulier*>(client)->getNbPoints() > SEUIL_DEBUT_REDUCTION) {
+		return montant * (1-TAUX_REDUC_REGULIER);
 	}
 	if (client->getStatut() == Prestige) {
-		if (static_cast<ClientPrestige*>(client)->getNbPoints() < SEUIL_LIVRAISON_GRATUITE && livraison == true) {
-			return  -montant * TAUX_REDUC_PRESTIGE + fraisTransport_[static_cast<ClientPrestige*>(client)->getAddresseCode()];
+		if (static_cast<ClientPrestige*>(client)->getNbPoints() < SEUIL_LIVRAISON_GRATUITE && livraison == true)
+		{
+			return  montant * (1-TAUX_REDUC_PRESTIGE) + fraisTransport_[static_cast<ClientPrestige*>(client)->getAddresseCode()];
 		}
-		else return  -montant * TAUX_REDUC_PRESTIGE;
+		else
+		{
+			return  montant * (1-TAUX_REDUC_PRESTIGE);
+		}
 	}
+	
 	
 }
 
