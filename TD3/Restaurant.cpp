@@ -321,7 +321,7 @@ void Restaurant::livrerClient(Client * client, vector<string> commande)
 	///v�rifier que le client a droit aux livraisons
 	///Si oui lui assigner la table des livraisons 
 	///Effectuer la commande
-	/*if (client->getStatut() == Prestige)
+	if (client->getStatut() == Prestige)
 	{
 		cout << "Livraison en cours .." << endl;
 		tables_[INDEX_TABLE_LIVRAISON]->setClientPrincipal(client);
@@ -354,8 +354,8 @@ void Restaurant::livrerClient(Client * client, vector<string> commande)
 	else
 	{
 		cout << client->getPrenom() << "." << client->getNom() << " n'est pas admissible a la livraison" << endl;
-	}*/
-	if (client->getStatut() == Prestige)
+	}
+	/*if (client->getStatut() == Prestige)
 	{
 		tables_[INDEX_TABLE_LIVRAISON]->setClientPrincipal(client);
 		tables_[INDEX_TABLE_LIVRAISON]->placerClients(1);
@@ -379,7 +379,7 @@ void Restaurant::livrerClient(Client * client, vector<string> commande)
 		libererTable(tables_[INDEX_TABLE_LIVRAISON]->getId());
 	}
 	else cout << "Le client " << client->getPrenom() << " " << client->getNom() << " n est pas admissible a la livraison:" << endl;
-
+	*/
 
 }
 
